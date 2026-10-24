@@ -1,0 +1,36 @@
+name: tugas_bubble_ai
+description: Bubble melayang AI untuk bantu kerjain tugas (scan layar / foto soal)
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Bubble overlay yang bisa muncul di atas app lain
+  flutter_overlay_window: ^0.5.0
+
+  # Ambil foto soal dari kamera / galeri
+  image_picker: ^1.1.2
+
+  # Panggil Gemini API
+  http: ^1.2.2
+
+  # Minta izin runtime (kamera, overlay, dll)
+  permission_handler: ^11.3.1
+
+  # Menyimpan API key & state kecil di device
+  shared_preferences: ^2.3.2
+
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
