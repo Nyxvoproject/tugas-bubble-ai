@@ -1,9 +1,8 @@
 
 name: Build APK
-
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
@@ -11,37 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: src
-
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: '3.24.0'
-          channel: 'stable'
-
-      - name: Create full Flutter project
-        run: flutter create app
-
-      - name: Copy project files
-        run: |
-          cp -r src/lib/* app/lib/
-          cp src/pubspec.yaml app/pubspec.yaml
-
-      - name: Get dependencies
-        working-directory: app
-        run: flutter pub get
-
-      - name: Build APK
-        working-directory: app
-        run: flutter build apk --release
-
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-release
-          path: app/build/app/outputs/flutter-apk/app-release.apk
+          name: app-debug
+          path: app/build/outputs/apk/debug/*.apk
